@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:nubank/bloc/galeria.dart';
+import 'package:nubank/screen/perfil.dart';
 import 'package:nubank/widget/card-bottom.dart';
 import 'package:nubank/widget/card-center.dart';
 import 'package:page_indicator/page_indicator.dart';
@@ -18,6 +19,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final GaleriaBloc galeriaBloc = BlocProvider.getBloc<GaleriaBloc>();
 
   Animation<double> opacityAnimation;
+  Animation<double> opacityAnimation1;
   AnimationController animationController;
 
   @override
@@ -29,6 +31,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
     opacityAnimation =
         Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+      parent: animationController,
+      curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
+    ));
+    opacityAnimation1 =
+        Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: animationController,
       curve: Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
     ));
@@ -49,6 +56,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     height: MediaQuery.of(context).size.height,
                     child: Stack(
                       children: <Widget>[
+                        Positioned(
+                            top: 100,
+                            left: 0,
+                            right: 0,
+                            child: AnimatedBuilder(
+                                animation: animationController,
+                                builder: (context, child) {
+                                  return Opacity(
+                                      opacity: opacityAnimation1.value,
+                                      child: SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.68,
+                                        child: PerfilPage()));
+                                })),
                         Positioned(
                             top: 20,
                             left: 0,
@@ -131,7 +151,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 align: IndicatorAlign.bottom,
                                                 length: 3,
                                                 indicatorSpace: 5.0,
-                                                padding: EdgeInsets.only(top: 50),
+                                                padding:
+                                                    EdgeInsets.only(top: 50),
                                                 indicatorColor:
                                                     Colors.purple[200],
                                                 indicatorSelectorColor:

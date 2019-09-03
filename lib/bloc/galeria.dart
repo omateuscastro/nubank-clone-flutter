@@ -33,7 +33,7 @@ class GaleriaBloc extends BlocBase {
     if (this.delta) {
        _blocUpdate.sink.add(0);
     } else {
-      _blocUpdate.sink.add(heigth - 25);
+      _blocUpdate.sink.add(heigth - 75);
     }
   }
 
