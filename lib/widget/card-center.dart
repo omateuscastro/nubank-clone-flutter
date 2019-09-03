@@ -33,7 +33,7 @@ class _CardCenterState extends State<CardCenter> {
           galeriaBloc.bottomBloc(MediaQuery.of(context).size.height * 0.6);
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Card(
             child: Stack(
               children: <Widget>[

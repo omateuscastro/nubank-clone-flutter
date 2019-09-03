@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nubank/bloc/galeria.dart';
 import 'package:nubank/widget/card-bottom.dart';
 import 'package:nubank/widget/card-center.dart';
+import 'package:page_indicator/page_indicator.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         color: Colors.purple,
         child: SafeArea(
             top: true,
-            bottom: true,
+            bottom: false,
             child: Scaffold(
                 backgroundColor: Colors.purple,
                 body: Container(
@@ -48,21 +49,52 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     height: MediaQuery.of(context).size.height,
                     child: Stack(
                       children: <Widget>[
-                        Text("Nome do vivente"),
+                        Positioned(
+                            top: 20,
+                            left: 0,
+                            right: 0,
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                        width: 50,
+                                        child: Image.asset(
+                                          "images/nubank.png",
+                                          fit: BoxFit.contain,
+                                        )),
+                                    Text(
+                                      "Vinícius",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
                         AnimatedBuilder(
                             animation: animationController,
                             builder: (context, child) {
                               return Positioned(
                                   left: 0,
                                   right: 0,
-                                  bottom: 0,
+                                  bottom: 30,
                                   child: Opacity(
                                       opacity: opacityAnimation.value,
                                       child: Container(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              0.15,
+                                              0.13,
                                           child: ListView(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 15),
@@ -94,44 +126,55 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.5,
-                                            child: PageView(
-                                              children: <Widget>[
-                                                CardCenter(
-                                                  callback: (val) {
-                                                    if (val) {
-                                                      animationController
-                                                          .reverse();
-                                                    } else {
-                                                      animationController
-                                                          .forward();
-                                                    }
-                                                  },
-                                                ),
-                                                CardCenter(
-                                                  callback: (val) {
-                                                    if (val) {
-                                                      animationController
-                                                          .reverse();
-                                                    } else {
-                                                      animationController
-                                                          .forward();
-                                                    }
-                                                  },
-                                                ),
-                                                CardCenter(
-                                                  callback: (val) {
-                                                    if (val) {
-                                                      animationController
-                                                          .reverse();
-                                                    } else {
-                                                      animationController
-                                                          .forward();
-                                                    }
-                                                  },
-                                                )
-                                              ],
-                                            ))));
+                                                0.4,
+                                            child: PageIndicatorContainer(
+                                                align: IndicatorAlign.bottom,
+                                                length: 3,
+                                                indicatorSpace: 5.0,
+                                                padding: EdgeInsets.only(top: 50),
+                                                indicatorColor:
+                                                    Colors.purple[200],
+                                                indicatorSelectorColor:
+                                                    Colors.white,
+                                                shape: IndicatorShape.circle(
+                                                    size: 8),
+                                                child: PageView(
+                                                  children: <Widget>[
+                                                    CardCenter(
+                                                      callback: (val) {
+                                                        if (val) {
+                                                          animationController
+                                                              .reverse();
+                                                        } else {
+                                                          animationController
+                                                              .forward();
+                                                        }
+                                                      },
+                                                    ),
+                                                    CardCenter(
+                                                      callback: (val) {
+                                                        if (val) {
+                                                          animationController
+                                                              .reverse();
+                                                        } else {
+                                                          animationController
+                                                              .forward();
+                                                        }
+                                                      },
+                                                    ),
+                                                    CardCenter(
+                                                      callback: (val) {
+                                                        if (val) {
+                                                          animationController
+                                                              .reverse();
+                                                        } else {
+                                                          animationController
+                                                              .forward();
+                                                        }
+                                                      },
+                                                    )
+                                                  ],
+                                                )))));
                               } else {
                                 return Container();
                               }
